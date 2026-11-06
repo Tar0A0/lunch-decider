@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>今日午餐吃什麼？智慧外送決策助手 | LLM 專題作品頁</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <!-- 頂部導覽列 -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand">🍱 今日午餐吃什麼？智慧外送決策助手</a>
+      <div class="nav-links">
+        <a href="#what-we-built">1. 做了什麼</a>
+        <a href="#how-to-run">2. 怎麼執行</a>
+        <a href="#execution-results">3. 執行結果</a>
+        <a href="#ai-usage">4. AI 使用說明</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero 區塊 -->
+  <header class="hero">
+    <div class="badge-row">
+      <span class="badge">Python 3.11+ &amp; uv</span>
+      <span class="badge cyan">Pydantic 結構化輸出</span>
+      <span class="badge emerald">Tool Calling 工具呼叫</span>
+      <span class="badge">Streaming 串流講評</span>
+      <span class="badge cyan">Embedding 語意檢索</span>
+    </div>
+    <h1>今日午餐吃什麼？智慧外送決策助手</h1>
+    <p>
+      解決上班族與學生每天中午「選擇困難、算運費湊單麻煩、怕誤踩飲食禁忌」的痛點！<br />
+      結合本地 Ollama 與雲端 LLM，自動檢索 16 家餐廳菜單、查詢天氣、試算多人免運門檻，輸出精準 Top 3 推薦。
+    </p>
+  </header>
+
+  <main class="container">
+    <!-- ==========================================
+         區塊 1：做了什麼
+         ========================================== -->
+    <section id="what-we-built" class="section">
+      <div class="section-header">
+        <span class="step-num">PART 01</span>
+        <h2>做了什麼（專案動機、核心功能與四項 LLM 能力）</h2>
+      </div>
+
+      <p style="margin-bottom: 1.25rem; color: var(--text-muted);">
+        每天中午團隊訂外送時，常需要同時考量「每人預算 150 元內」、「有人想吃辣」、「有人不吃牛或吃素」以及「外送滿 300 元免運費」等多重限制。本專案以 Python（<code>uv</code> 管理）打造命令列智慧決策助手 <code>lunch-decider</code>，一次整合課程 <strong>4 種核心 LLM 能力</strong>：
+      </p>
+
+      <div class="grid-2">
+        <div class="feature-card">
+          <h3>① 結構化輸出 (Structured Output)</h3>
+          <p>
+            使用 <code>Pydantic</code> 定義嚴格的 <code>Recommendation</code> 與 <code>LunchDecisionResponse</code> Schema（包含 <code>name</code>, <code>dishes</code>, <code>price</code>, <code>eta_minutes</code>, <code>calories_estimate</code>, <code>reason</code>, <code>score</code>）。將 JSON Schema 傳入模型 <code>format</code> 參數，並實作自動驗證與最多 3 次失敗重試機制。
+          </p>
+        </div>
+        <div class="feature-card">
+          <h3>② 工具呼叫 (Tool Calling)</h3>
+          <p>
+            提供 3 個本地工具供 LLM 主動呼叫：<code>search_restaurants(max_price, taste, diet)</code> 過濾餐廳、<code>get_weather(city)</code> 評估雨天外送ETA影響、<code>check_budget(price_per_person, people, budget_per_person)</code> 計算滿 $300 免運與每人實付金額。
+          </p>
+        </div>
+        <div class="feature-card">
+          <h3>③ 即時串流輸出 (Streaming)</h3>
+          <p>
+            在產出 Top 3 結構化推薦表後，透過 <code>httpx.stream</code> 逐 Token 即時串流印出「👨‍🍳 AI 外送決策主廚即時講評」，在終端機呈現流暢的打字機互動體驗。
+          </p>
+        </div>
+        <div class="feature-card">
+          <h3>④ 向量語意檢索 (Embedding 加分項)</h3>
+          <p>
+            在進入生成決策前，先將使用者的自然語言需求與 <code>data/restaurants.json</code> 共 16 家餐廳的特徵描述轉為數值向量，計算 <strong>Cosine Similarity（餘弦相似度）</strong> 篩選出語意最匹配的 Top 5 候選店家。
+          </p>
+        </div>
+      </div>
+
+      <!-- 系統流程圖 -->
+      <div class="flow-box" aria-label="系統執行流程圖">
+        <div class="flow-step">👤 CLI 輸入條件<br /><small>預算 / 口味 / 不吃牛 / 人數</small></div>
+        <span class="flow-arrow">➔</span>
+        <div class="flow-step">🧠 Embedding 檢索<br /><small>計算餘弦相似度 Top 5</small></div>
+        <span class="flow-arrow">➔</span>
+        <div class="flow-step">🛠️ Tool Calling<br /><small>查菜單 + 查天氣 + 算免運</small></div>
+        <span class="flow-arrow">➔</span>
+        <div class="flow-step">📋 Pydantic 驗證<br /><small>JSON Schema + 自動重試</small></div>
+        <span class="flow-arrow">➔</span>
+        <div class="flow-step">⚡ Streaming 輸出<br /><small>Rich 表格 + 匯出 JSON/MD</small></div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         區塊 2：怎麼執行
+         ========================================== -->
+    <section id="how-to-run" class="section">
+      <div class="section-header">
+        <span class="step-num">PART 02</span>
+        <h2>怎麼執行（環境安裝、Ollama / 雲端切換與 CLI 指令）</h2>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <h3 style="margin-bottom: 0.4rem;">步驟 1：安裝 uv 並同步專案依賴</h3>
+          <pre><code># Clone 儲存庫並進入目錄
+git clone https://github.com/Tar0A0/lunch-decider.git
+cd lunch-decider
+
+# 安裝所有執行與測試依賴（自動建立虛擬環境）
+uv sync --dev</code></pre>
+
+          <h3 style="margin-bottom: 0.4rem;">步驟 2：設定環境變數（本地 Ollama 或雲端 API）</h3>
+          <pre><code># 複製環境變數範本（.env 已列入 .gitignore 絕不上傳）
+cp .env.example .env
+
+# 若使用本地 Ollama（預設）：
+ollama pull qwen2.5:7b</code></pre>
+        </div>
+
+        <div>
+          <h3 style="margin-bottom: 0.4rem;">步驟 3：執行智慧外送決策助手 CLI</h3>
+          <pre><code># 呼叫本地 Ollama 模型進行決策
+uv run lunch --budget 150 --taste 辣 --diet 不吃牛 --people 2
+
+# 切換為 Google Gemini 或 OpenAI 模型
+uv run lunch --budget 150 --taste 辣 --diet 不吃牛 --people 2 --provider gemini
+
+# 離線模擬模式（不需連上 LLM，供快速驗證與 CI 測試）
+uv run lunch --budget 150 --taste 辣 --diet 不吃牛 --people 2 --mock</code></pre>
+
+          <h3 style="margin-bottom: 0.4rem;">步驟 4：執行單元測試與 Linter</h3>
+          <pre><code>uv run ruff check .
+uv run pytest -v</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         區塊 3：執行結果
+         ========================================== -->
+    <section id="execution-results" class="section">
+      <div class="section-header">
+        <span class="step-num">PART 03</span>
+        <h2>執行結果（終端機實跑畫面、結構化推薦卡片與 JSON 輸出）</h2>
+      </div>
+
+      <p style="margin-bottom: 1rem; color: var(--text-muted);">
+        以下為實際執行指令 <code>uv run lunch --budget 150 --taste 辣 --diet 不吃牛 --people 2</code> 的終端機輸出截圖與產出的結構化資料（由 <code>docs/results/latest_decision.json</code> 即時載入）：
+      </p>
+
+      <!-- 終端機執行截圖 SVG -->
+      <div style="margin-bottom: 1.5rem;">
+        <img
+          src="./screenshots/terminal_output.svg"
+          alt="終端機執行 uv run lunch 輸出截圖"
+          style="width: 100%; border-radius: 12px; border: 1px solid var(--border); display: block;"
+        />
+      </div>
+
+      <!-- Top 3 推薦卡片（動態對應 latest_decision.json） -->
+      <h3 style="margin-bottom: 0.9rem;">🏆 Pydantic 結構化推薦結果 Top 3</h3>
+      <div id="recommendations-grid" class="grid-3" style="margin-bottom: 1.8rem;">
+        <div class="rec-card">
+          <span class="rec-rank">TOP 1</span>
+          <span class="rec-score">96 / 100 分</span>
+          <h3>川魂麻辣燙・酸辣粉專門店</h3>
+          <div class="rec-meta">
+            <span>💰 每人 $145</span>
+            <span>⏱️ 25 分鐘</span>
+            <span>🔥 620 kcal</span>
+          </div>
+          <div>
+            <span class="dish-tag">招牌肥腸酸辣粉</span>
+            <span class="dish-tag">秘製麻辣嫩雞湯麵</span>
+          </div>
+          <p style="margin-top: 0.75rem; font-size: 0.9rem; color: var(--text-muted);">
+            【川味中式】平均每人 $145 完全符合 $150 預算上限；具備「辣、麻」風味且絕不含牛肉成分，預估 25 分鐘即可送達台北市大安區。
+          </p>
+        </div>
+
+        <div class="rec-card">
+          <span class="rec-rank">TOP 2</span>
+          <span class="rec-score">92 / 100 分</span>
+          <h3>曼谷小廚泰式便當</h3>
+          <div class="rec-meta">
+            <span>💰 每人 $135</span>
+            <span>⏱️ 22 分鐘</span>
+            <span>🔥 680 kcal</span>
+          </div>
+          <div>
+            <span class="dish-tag">泰式打拋豬飯（附半熟蛋）</span>
+            <span class="dish-tag">綠咖哩椰汁嫩雞飯</span>
+          </div>
+          <p style="margin-top: 0.75rem; font-size: 0.9rem; color: var(--text-muted);">
+            【泰式料理】平均每人 $135 完全符合 $150 預算上限；具備「酸辣、辣」風味且絕不含牛肉成分，預估 22 分鐘即可送達台北市大安區。
+          </p>
+        </div>
+
+        <div class="rec-card">
+          <span class="rec-rank">TOP 3</span>
+          <span class="rec-score">88 / 100 分</span>
+          <h3>首爾韓食堂・石鍋拌飯與豆腐煲</h3>
+          <div class="rec-meta">
+            <span>💰 每人 $150</span>
+            <span>⏱️ 28 分鐘</span>
+            <span>🔥 640 kcal</span>
+          </div>
+          <div>
+            <span class="dish-tag">韓式泡菜豬肉嫩豆腐煲</span>
+            <span class="dish-tag">辣炒年糕起司雞肉丼</span>
+          </div>
+          <p style="margin-top: 0.75rem; font-size: 0.9rem; color: var(--text-muted);">
+            【韓式料理】平均每人 $150 完全符合 $150 預算上限；具備「辣、甜辣」風味且絕不含牛肉成分，預估 28 分鐘即可送達台北市大安區。
+          </p>
+        </div>
+      </div>
+
+      <!-- 真實 JSON 結構化輸出範例 -->
+      <h3 style="margin-bottom: 0.5rem;">📄 結構化輸出 JSON 檔案內容 (<code>docs/results/latest_decision.json</code>)</h3>
+      <div class="terminal-window">
+        <div class="terminal-bar">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="terminal-title">docs/results/latest_decision.json</span>
+        </div>
+        <pre id="json-viewer" style="margin: 0; border: none; border-radius: 0;"><code>正在載入 docs/results/latest_decision.json ...</code></pre>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         區塊 4：AI 使用說明
+         ========================================== -->
+    <section id="ai-usage" class="section">
+      <div class="section-header">
+        <span class="step-num">PART 04</span>
+        <h2>AI 使用說明（使用工具、應用場景與人工修改／驗證紀錄）</h2>
+      </div>
+
+      <p style="margin-bottom: 1rem; color: var(--text-muted);">
+        本專案在開發過程中採用 AI 輔助程式設計（Antigravity / Gemini 與 ChatGPT），所有由 AI 生成的程式碼、資料結構與 GitHub Actions 設定皆經過開發者親自審查、修改與單元測試驗證。具體紀錄如下表：
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 16%;">使用的 AI 工具</th>
+              <th style="width: 20%;">應用在哪個模組 / 環節</th>
+              <th style="width: 30%;">AI 原始產出內容</th>
+              <th style="width: 34%;">我自己的修改與驗證（關鍵工程把關）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Antigravity (Gemini)</strong></td>
+              <td>餐廳資料集與飲食限制過濾 (<code>data/restaurants.json</code>, <code>tools.py</code>)</td>
+              <td>產出 16 筆餐廳 JSON 資料，並用簡單的字串包含 <code>"牛" in tag</code> 判斷是否含牛肉。</td>
+              <td>
+                <strong>發現問題與修改：</strong>AI 原本寫的字串比對會把標籤寫有「不吃牛可」的餐廳誤判為含有牛肉而剔除！<br />
+                <strong>我的修正与驗證：</strong>在 <code>Restaurant</code> Schema 新增明確的布林欄位 <code>contains_beef: bool</code> 與 <code>is_vegetarian: bool</code>，並撰寫 <code>test_search_restaurants_respects_budget_and_no_beef</code> 測試，確保「老張記牛肉麵」被剔除、而「不吃牛可」的酸辣粉正常保留。
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Antigravity (Gemini)</strong></td>
+              <td>Pydantic 結構化輸出與重試機制 (<code>schemas.py</code>, <code>llm.py</code>)</td>
+              <td>定義 <code>Recommendation</code> 模型並呼叫 Ollama <code>/api/chat</code> 解析 JSON。</td>
+              <td>
+                <strong>發現問題與修改：</strong>本地小模型偶爾會在 JSON 外層包覆 <code>```json ... ```</code> 或是輸出超出範圍的 <code>score</code>（例如 999 分）導致程式崩潰。<br />
+                <strong>我的修正與驗證：</strong>實作 <code>_extract_json_object()</code> 剝離 Markdown 標籤，並加上最多 3 次的 <code>ValidationError</code> 自動重試迴圈，將 Pydantic 錯誤原因回傳給 LLM 修正；透過 <code>httpx.MockTransport</code> 在 <code>test_llm.py</code> 模擬第 1 次失敗、第 2 次成功驗證。
+              </td>
+            </tr>
+            <tr>
+              <td><strong>ChatGPT / Antigravity</strong></td>
+              <td>Embedding 向量相似度檢索 (<code>embeddings.py</code>)</td>
+              <td>建議直接呼叫外部 Embedding API 計算餐廳相似度。</td>
+              <td>
+                <strong>發現問題與修改：</strong>在 GitHub Actions CI 環境或未額外下載 Embedding 模型時，外部呼叫會直接連線失敗。<br />
+                <strong>我的修正與驗證：</strong>設計雙模式架構——優先嘗試本地 Ollama <code>/api/embed</code>，若未啟動則自動無縫切換至我實作的 256 維繁體中文字元 Unigram+Bigram TF-IDF 向量器，並以 <code>test_cosine_similarity_math</code> 驗證數學正確性。
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Antigravity (Gemini)</strong></td>
+              <td>GitHub Actions 自動測試與 Pages 部署 (<code>ci.yml</code>, <code>pages.yml</code>)</td>
+              <td>產生基本的 pytest workflow 與 GitHub Pages 部署腳本。</td>
+              <td>
+                <strong>發現問題與修改：</strong>確認 GitHub Pages 由 Actions 部署時必須具備 <code>pages: write</code> 與 <code>id-token: write</code> 權限，且不能在 CI 中依賴真實 API Key。<br />
+                <strong>我的修正與驗證：</strong>在 CLI 新增 <code>--mock</code> 離線決定性模式讓 CI 測試執行；並嚴格檢查 <code>.gitignore</code> 確保 <code>.env</code> 絕不被加入 Git 歷史（避免扣 20 分）。
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>🍱 今日午餐吃什麼？智慧外送決策助手 (lunch-decider) — 使用 Python + uv + Ollama / Cloud LLM 打造，由 GitHub Actions 自動部署</p>
+  </footer>
+
+  <script>
+    // 動態讀取 docs/results/latest_decision.json 展示真實結構化輸出
+    const fallbackData = {
+      query: { budget: 150, taste: "辣", diet: "不吃牛", people: 2, area: "台北市大安區" },
+      provider: "ollama / mock-verified",
+      model: "qwen2.5:7b",
+      response: {
+        recommendations: [
+          {
+            name: "川魂麻辣燙・酸辣粉專門店",
+            dishes: ["招牌肥腸酸辣粉", "秘製麻辣嫩雞湯麵"],
+            price: 145,
+            eta_minutes: 25,
+            calories_estimate: 620,
+            reason: "【川味中式】平均每人 $145 完全符合 $150 預算上限；具備「辣、麻」風味且絕不含牛肉成分，預估 25 分鐘即可送達台北市大安區。",
+            score: 96
+          },
+          {
+            name: "曼谷小廚泰式便當",
+            dishes: ["泰式打拋豬飯（附半熟蛋）", "綠咖哩椰汁嫩雞飯"],
+            price: 135,
+            eta_minutes: 22,
+            calories_estimate: 680,
+            reason: "【泰式料理】平均每人 $135 完全符合 $150 預算上限；具備「酸辣、辣」風味且絕不含牛肉成分，預估 22 分鐘即可送達台北市大安區。",
+            score: 92
+          },
+          {
+            name: "首爾韓食堂・石鍋拌飯與豆腐煲",
+            dishes: ["韓式泡菜豬肉嫩豆腐煲", "辣炒年糕起司雞肉丼"],
+            price: 150,
+            eta_minutes: 28,
+            calories_estimate: 640,
+            reason: "【韓式料理】平均每人 $150 完全符合 $150 預算上限；具備「辣、甜辣」風味且絕不含牛肉成分，預估 28 分鐘即可送達台北市大安區。",
+            score: 88
+          }
+        ],
+        weather_summary: "台北市大安區多雲時陰偶陣雨（23°C，降雨機率 60%）：雨天外送需求較高，建議選擇距離近、預估 25 分鐘內送達的店家。",
+        budget_summary: "2 人訂餐小計 $290，外送費 $39（或加點小菜滿 $300 免運），符合預算規劃。"
+      }
+    };
+
+    fetch("./results/latest_decision.json")
+      .then((res) => (res.ok ? res.json() : Promise.reject()))
+      .then((data) => {
+        document.getElementById("json-viewer").textContent = JSON.stringify(data, null, 2);
+      })
+      .catch(() => {
+        document.getElementById("json-viewer").textContent = JSON.stringify(fallbackData, null, 2);
+      });
+  </script>
+</body>
+</html>
