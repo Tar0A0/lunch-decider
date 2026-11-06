@@ -219,7 +219,7 @@ def run_cli(argv: list[str] | None = None) -> DecisionExecutionResult:
         show_lines=True,
     )
     rec_table.add_column("順位", justify="center", style="bold yellow")
-    rec_table.add_column("餐廳名稱与推薦餐點", style="bold white")
+    rec_table.add_column("餐廳名稱與推薦餐點", style="bold white")
     rec_table.add_column("單價 / ETA / 熱量", justify="center", style="green")
     rec_table.add_column("推薦分數", justify="center", style="bold magenta")
     rec_table.add_column("AI 結構化推薦理由", style="white")

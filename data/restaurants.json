@@ -26,7 +26,7 @@
     "is_vegetarian": false,
     "avg_price": 135,
     "eta_minutes": 22,
-    "rating": 4.6,
+    "rating": 4.7,
     "calories_estimate": 680,
     "signature_dishes": ["泰式打拋豬飯（附半熟蛋）", "綠咖哩椰汁嫩雞飯", "泰式酸辣海鮮湯河粉"],
     "description": "道地泰國九層塔與魚露爆炒打拋豬，酸香微辣超下飯，全店餐點皆不添加牛肉，外送出餐極快。"
@@ -141,7 +141,7 @@
     "rating": 4.5,
     "calories_estimate": 760,
     "signature_dishes": ["懷舊滷排骨便當", "脆皮椒麻雞腿便當", "香煎蔥油鯖魚便當"],
-    "description": "高CP值百元便當首選，現炸後滷的厚切豬排骨加上四樣每日現炒家常配菜与酸菜。"
+    "description": "高CP值百元便當首選，現炸後滷的厚切豬排骨加上四樣每日現炒家常配菜與酸菜。"
   },
   {
     "id": "rest-010",
@@ -234,7 +234,7 @@
     "is_vegetarian": false,
     "avg_price": 148,
     "eta_minutes": 23,
-    "rating": 4.7,
+    "rating": 4.5,
     "calories_estimate": 590,
     "signature_dishes": ["墨西哥哈abanero辣味手撕雞肉捲餅", "酪梨莎莎醬烤魚塔可餅", "墨西哥玉米片佐辣起司醬"],
     "description": "新鮮番茄莎莎醬、墨西哥辣椒與炭烤香料雞腿肉緊緊包裹在溫熱餅皮中，單手開會也能優雅享用。"

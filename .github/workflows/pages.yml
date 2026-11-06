@@ -11,10 +11,10 @@ permissions:
   pages: write
   id-token: write
 
-# 確保同時只有一個 Pages 部署在進行，避免競爭衝突
+# 確保同時只有一個 Pages 部署在進行，若短時間連續觸發則自動取消排隊中的舊部署
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build:

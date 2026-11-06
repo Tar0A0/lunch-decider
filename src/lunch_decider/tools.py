@@ -64,12 +64,14 @@ def search_restaurants(
     def match_score(r: Restaurant) -> float:
         score = r.rating * 10
         if taste and taste not in ("不限", ""):
-            if any(taste in tag or tag in taste for tag in r.taste_tags):
-                score += 20
+            if taste in r.taste_tags:
+                score += 25
+            elif any(taste in tag or tag in taste for tag in r.taste_tags):
+                score += 18
             elif taste in r.description or any(taste in d for d in r.signature_dishes):
-                score += 12
+                score += 10
         if area and area in r.city_area:
-            score += 5
+            score += 4
         return score
 
     results.sort(key=match_score, reverse=True)

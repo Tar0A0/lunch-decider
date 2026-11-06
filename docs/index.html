@@ -259,7 +259,7 @@ uv run pytest -v</code></pre>
               <td>產出 16 筆餐廳 JSON 資料，並用簡單的字串包含 <code>"牛" in tag</code> 判斷是否含牛肉。</td>
               <td>
                 <strong>發現問題與修改：</strong>AI 原本寫的字串比對會把標籤寫有「不吃牛可」的餐廳誤判為含有牛肉而剔除！<br />
-                <strong>我的修正与驗證：</strong>在 <code>Restaurant</code> Schema 新增明確的布林欄位 <code>contains_beef: bool</code> 與 <code>is_vegetarian: bool</code>，並撰寫 <code>test_search_restaurants_respects_budget_and_no_beef</code> 測試，確保「老張記牛肉麵」被剔除、而「不吃牛可」的酸辣粉正常保留。
+                <strong>我的修正與驗證：</strong>在 <code>Restaurant</code> Schema 新增明確的布林欄位 <code>contains_beef: bool</code> 與 <code>is_vegetarian: bool</code>，並撰寫 <code>test_search_restaurants_respects_budget_and_no_beef</code> 測試，確保「老張記牛肉麵」被剔除、而「不吃牛可」的酸辣粉正常保留。
               </td>
             </tr>
             <tr>
