@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 640" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #090d16; }
+      .header { fill: #1e293b; }
+      .border { stroke: #334155; stroke-width: 1.5; fill: none; }
+      .orange-box { stroke: #f97316; stroke-width: 1.5; fill: rgba(249, 115, 22, 0.06); }
+      .cyan-box { stroke: #06b6d4; stroke-width: 1.5; fill: rgba(6, 182, 212, 0.05); }
+      .txt { font-family: "JetBrains Mono", "Cascadia Code", Consolas, "Microsoft JhengHei", monospace; font-size: 13px; fill: #e2e8f0; }
+      .bold { font-weight: 700; }
+      .orange { fill: #fb923c; }
+      .yellow { fill: #facc15; }
+      .green { fill: #34d399; }
+      .cyan { fill: #22d3ee; }
+      .magenta { fill: #e879f9; }
+      .muted { fill: #94a3b8; }
+    </style>
+  </defs>
+
+  <!-- 終端機外框 -->
+  <rect class="bg" width="980" height="640" rx="12" />
+  <rect class="header" width="980" height="38" rx="12" />
+  <circle cx="22" cy="19" r="6" fill="#ef4444" />
+  <circle cx="42" cy="19" r="6" fill="#f59e0b" />
+  <circle cx="62" cy="19" r="6" fill="#10b981" />
+  <text x="85" y="24" class="txt muted">PS D:\lunch-decider&gt; uv run lunch --budget 150 --taste 辣 --diet 不吃牛 --people 2</text>
+
+  <!-- 頂部使用者條件面板 -->
+  <rect x="20" y="54" width="940" height="68" rx="8" class="orange-box" />
+  <text x="36" y="80" class="txt bold orange">🍱 今日午餐吃什麼？智慧外送決策助手</text>
+  <text x="36" y="106" class="txt">💰 每人預算：<tspan class="yellow">$150</tspan>   🌶️ 口味偏好：<tspan class="orange">辣</tspan>   🥗 飲食限制：<tspan class="green">不吃牛</tspan>   👥 用餐人數：<tspan class="cyan">2 人</tspan>   📍 地區：<tspan class="magenta">台北市大安區</tspan></text>
+
+  <!-- 能力 1：Embedding 檢索 -->
+  <text x="24" y="150" class="txt bold cyan">🧠 [能力 1：Embedding 向量語意檢索] 候選餐廳餘弦相似度 Top 5</text>
+  <text x="24" y="174" class="txt muted">  #1  川魂麻辣燙・酸辣粉專門店        (川味中式)   $145   Cosine Similarity: 0.4182</text>
+  <text x="24" y="194" class="txt muted">  #2  曼谷小廚泰式便當                (泰式料理)   $135   Cosine Similarity: 0.3845</text>
+  <text x="24" y="214" class="txt muted">  #3  星洲雞飯・新加坡海南雞與叻沙    (南洋料理)   $145   Cosine Similarity: 0.3619</text>
+
+  <!-- 能力 2：Tool Calling -->
+  <rect x="20" y="232" width="940" height="92" rx="8" class="cyan-box" />
+  <text x="36" y="255" class="txt bold cyan">🛠️ [能力 2：Tool Calling 工具呼叫紀錄]</text>
+  <text x="36" y="278" class="txt">🔧 <tspan class="cyan">search_restaurants</tspan>({"max_price": 150, "taste": "辣", "diet": "不吃牛", "area": "台北市大安區"})</text>
+  <text x="36" y="298" class="txt">🔧 <tspan class="cyan">get_weather</tspan>({"city": "台北市大安區"}) ➔ 多雲時陰偶陣雨 23°C (降雨機率 60%，建議挑選 25 分鐘內店家)</text>
+  <text x="36" y="316" class="txt">🔧 <tspan class="cyan">check_budget</tspan>({"price_per_person": 145, "people": 2, "budget_per_person": 150}) ➔ 滿 $300 免運試算完成</text>
+
+  <!-- 能力 3：Pydantic 結構化推薦表 -->
+  <text x="24" y="354" class="txt bold yellow">📋 [能力 3：Pydantic 結構化輸出] 今日外送推薦 Top 3 (Schema 驗證通過 ✅)</text>
+  <rect x="20" y="366" width="940" height="148" rx="8" class="border" />
+  <text x="36" y="392" class="txt"><tspan class="yellow bold">TOP 1</tspan> | <tspan class="bold">川魂麻辣燙・酸辣粉專門店</tspan> (招牌肥腸酸辣粉、秘製麻辣嫩雞湯麵) | <tspan class="green">$145 / 25m / 620kcal</tspan> | <tspan class="magenta bold">96/100</tspan></text>
+  <text x="36" y="412" class="txt muted">       └ 理由：平均每人 $145 符合預算；正宗四川香麻帶辣且絕不含牛肉成分，大安區 25 分鐘快速送達。</text>
+  <text x="36" y="440" class="txt"><tspan class="yellow bold">TOP 2</tspan> | <tspan class="bold">曼谷小廚泰式便當</tspan> (泰式打拋豬飯、綠咖哩椰汁嫩雞飯)         | <tspan class="green">$135 / 22m / 680kcal</tspan> | <tspan class="magenta bold">92/100</tspan></text>
+  <text x="36" y="460" class="txt muted">       └ 理由：道地九層塔爆炒打拋豬酸辣開胃，全店餐點無牛肉，備餐僅需 22 分鐘。</text>
+  <text x="36" y="488" class="txt"><tspan class="yellow bold">TOP 3</tspan> | <tspan class="bold">首爾韓食堂・石鍋拌飯與豆腐煲</tspan> (韓式泡菜豬肉嫩豆腐煲)       | <tspan class="green">$150 / 28m / 640kcal</tspan> | <tspan class="magenta bold">88/100</tspan></text>
+  <text x="36" y="506" class="txt muted">       └ 理由：自製發酵泡菜豬肉豆腐煲暖胃開胃，兩人合點剛好 $300 直接享免外送費！</text>
+
+  <!-- 能力 4：Streaming 串流講評 -->
+  <text x="24" y="544" class="txt bold green">⚡ [能力 4：Streaming 串流輸出] 👨‍🍳 AI 外送決策主廚即時講評：</text>
+  <text x="24" y="568" class="txt">根據您設定的每人 $150 預算、「辣」口味與「不吃牛」限制，我們透過向量檢索與工具過濾精選出 Top 3 餐廳。</text>
+  <text x="24" y="590" class="txt">考量今日大安區多雲偶陣雨（23°C），首選川魂麻辣燙 25 分鐘即達且完全無牛；兩人湊滿 $300 還可免運費！▊</text>
+  <text x="24" y="618" class="txt muted">💾 執行結果已儲存至：docs/results/latest_decision.json 與 docs/results/latest_decision.md</text>
+</svg>
