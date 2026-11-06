@@ -5,7 +5,7 @@ description = "今日午餐吃什麼？智慧外送決策助手 — 結合結構
 readme = "README.md"
 requires-python = ">=3.11"
 authors = [
-    { name = "name = "Tar0A0" }
+    { name = "Tar0A0" }
 ]
 dependencies = [
     "httpx>=0.27.0",

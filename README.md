@@ -6,7 +6,7 @@
 > **解決每天中午「不知道吃什麼、算運費湊單麻煩、怕誤踩同事飲食禁忌」的智慧外送決策 CLI 工具！**  
 > 使用者只需輸入**預算上限、口味偏好、飲食限制、用餐人數與所在地區**，程式即結合 **Embedding 向量語意檢索**、**Tool Calling 工具呼叫**、**Pydantic 結構化輸出（含失敗自動重試）** 與 **Streaming 即時串流講評**，從本地 16 家多元餐廳資料庫中推薦最適合的 3 個外送選項。
 
-🌐 **GitHub Pages 作品頁網址**：`https://Tar0A0.github.io/lunch-decider/`（推上 GitHub 後由 Actions 自動發布）
+🌐 **GitHub Pages 作品頁網址**：[https://tar0a0.github.io/lunch-decider/](https://tar0a0.github.io/lunch-decider/)（由 GitHub Actions 自動發布）
 
 ---
 
