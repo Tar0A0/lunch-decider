@@ -11,7 +11,6 @@ from lunch_decider.schemas import LunchDecisionResponse, Recommendation, UserQue
 from lunch_decider.tools import (
     check_budget,
     execute_tool_call,
-    get_weather,
     load_restaurants,
     search_restaurants,
 )

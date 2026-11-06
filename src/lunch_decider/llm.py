@@ -46,9 +46,7 @@ class LLMConfig:
     ollama_model: str = field(default_factory=lambda: os.getenv("OLLAMA_MODEL", "qwen2.5:7b"))
     openai_api_key: str = field(default_factory=lambda: os.getenv("OPENAI_API_KEY", ""))
     openai_base_url: str = field(
-        default_factory=lambda: os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1").rstrip(
-            "/"
-        )
+        default_factory=lambda: os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1").rstrip("/")
     )
     openai_model: str = field(default_factory=lambda: os.getenv("OPENAI_MODEL", "gpt-4o-mini"))
     gemini_api_key: str = field(default_factory=lambda: os.getenv("GEMINI_API_KEY", ""))
@@ -319,8 +317,7 @@ def stream_chef_commentary(
             f"{decision.recommendations[0].eta_minutes} 分鐘，且完全不含牛肉成分；"
             f"{decision.budget_summary} 祝您今日午餐愉快！"
         )
-        for ch in mock_text:
-            yield ch
+        yield from mock_text
         return
 
     cfg = config or LLMConfig()

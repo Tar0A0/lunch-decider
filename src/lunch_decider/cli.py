@@ -250,9 +250,7 @@ def run_cli(argv: list[str] | None = None) -> DecisionExecutionResult:
 
     # 匯出 JSON 與 Markdown 報告
     json_path, md_path = save_execution_artifacts(result, Path(args.output_dir))
-    console.print(
-        f"[dim]💾 執行結果已儲存至：{json_path.as_posix()} 與 {md_path.as_posix()}[/dim]"
-    )
+    console.print(f"[dim]💾 執行結果已儲存至：{json_path.as_posix()} 與 {md_path.as_posix()}[/dim]")
     return result
 
 

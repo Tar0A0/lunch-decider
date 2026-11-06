@@ -6,8 +6,8 @@
     "people": 2,
     "area": "台北市大安區"
   },
-  "provider": "ollama",
-  "model": "qwen2.5:7b",
+  "provider": "mock (local-deterministic)",
+  "model": "lunch-decider-mock-v1",
   "retries_used": 0,
   "embedding_candidates": [
     {
@@ -15,23 +15,7 @@
       "name": "川魂麻辣燙・酸辣粉專門店",
       "cuisine": "川味中式",
       "avg_price": 145,
-      "similarity": 0.4182,
-      "embed_engine": "local-char-ngram-256d"
-    },
-    {
-      "id": "rest-002",
-      "name": "曼谷小廚泰式便當",
-      "cuisine": "泰式料理",
-      "avg_price": 135,
-      "similarity": 0.3845,
-      "embed_engine": "local-char-ngram-256d"
-    },
-    {
-      "id": "rest-011",
-      "name": "星洲雞飯・新加坡海南雞與叻沙專門",
-      "cuisine": "南洋料理",
-      "avg_price": 145,
-      "similarity": 0.3619,
+      "similarity": 0.4296,
       "embed_engine": "local-char-ngram-256d"
     },
     {
@@ -39,15 +23,31 @@
       "name": "首爾韓食堂・石鍋拌飯與豆腐煲",
       "cuisine": "韓式料理",
       "avg_price": 150,
-      "similarity": 0.3512,
+      "similarity": 0.396,
       "embed_engine": "local-char-ngram-256d"
     },
     {
-      "id": "rest-015",
-      "name": "墨西哥狂想曲・Taco 與辣雞肉捲餅",
-      "cuisine": "美墨料理",
-      "avg_price": 148,
-      "similarity": 0.3394,
+      "id": "rest-002",
+      "name": "曼谷小廚泰式便當",
+      "cuisine": "泰式料理",
+      "avg_price": 135,
+      "similarity": 0.3766,
+      "embed_engine": "local-char-ngram-256d"
+    },
+    {
+      "id": "rest-011",
+      "name": "星洲雞飯・新加坡海南雞與叻沙專門",
+      "cuisine": "南洋料理",
+      "avg_price": 145,
+      "similarity": 0.3662,
+      "embed_engine": "local-char-ngram-256d"
+    },
+    {
+      "id": "rest-003",
+      "name": "綠野鮮蹤・舒肥高蛋白健康餐盒",
+      "cuisine": "健康輕食",
+      "avg_price": 140,
+      "similarity": 0.3484,
       "embed_engine": "local-char-ngram-256d"
     }
   ],
@@ -62,10 +62,53 @@
       },
       "output": [
         {
+          "id": "rest-007",
+          "name": "心田蔬食・創意全素料理坊",
+          "cuisine": "蔬食素食",
+          "city_area": "台北市大安區",
+          "taste_tags": [
+            "清淡",
+            "清爽",
+            "微辣可",
+            "麻油香"
+          ],
+          "dietary_tags": [
+            "全素",
+            "蛋奶素",
+            "不吃牛",
+            "不吃豬"
+          ],
+          "contains_beef": false,
+          "is_vegetarian": true,
+          "avg_price": 125,
+          "eta_minutes": 20,
+          "rating": 4.9,
+          "calories_estimate": 430,
+          "signature_dishes": [
+            "川味椒麻猴頭菇拌麵（全素）",
+            "松露野菇燉飯",
+            "麻油薑香鮮蔬湯餃"
+          ],
+          "description": "百分之百植物性食材製作，連愛吃肉的同事都驚豔的手工猴頭菇與松露燉飯。"
+        },
+        {
           "id": "rest-001",
           "name": "川魂麻辣燙・酸辣粉專門店",
           "cuisine": "川味中式",
           "city_area": "台北市大安區",
+          "taste_tags": [
+            "辣",
+            "麻",
+            "重口味",
+            "熱湯"
+          ],
+          "dietary_tags": [
+            "不吃牛可",
+            "含豬肉",
+            "可客製無肉"
+          ],
+          "contains_beef": false,
+          "is_vegetarian": false,
           "avg_price": 145,
           "eta_minutes": 25,
           "rating": 4.7,
@@ -74,37 +117,37 @@
             "招牌肥腸酸辣粉",
             "秘製麻辣嫩雞湯麵",
             "紅油抄手"
-          ]
+          ],
+          "description": "正宗四川花椒與朝天椒慢火熬製湯底，香麻帶勁，不含牛肉成分，適合喜歡吃辣又不想破百五預算的上班族。"
         },
         {
-          "id": "rest-002",
-          "name": "曼谷小廚泰式便當",
-          "cuisine": "泰式料理",
-          "city_area": "台北市信義區",
-          "avg_price": 135,
-          "eta_minutes": 22,
-          "rating": 4.6,
-          "calories_estimate": 680,
+          "id": "rest-011",
+          "name": "星洲雞飯・新加坡海南雞與叻沙專門",
+          "cuisine": "南洋料理",
+          "city_area": "台北市大安區",
+          "taste_tags": [
+            "微辣",
+            "香濃",
+            "咖哩",
+            "薑蔥"
+          ],
+          "dietary_tags": [
+            "不吃牛",
+            "含雞肉",
+            "含海鮮"
+          ],
+          "contains_beef": false,
+          "is_vegetarian": false,
+          "avg_price": 145,
+          "eta_minutes": 24,
+          "rating": 4.7,
+          "calories_estimate": 610,
           "signature_dishes": [
-            "泰式打拋豬飯（附半熟蛋）",
-            "綠咖哩椰汁嫩雞飯",
-            "泰式酸辣海鮮湯河粉"
-          ]
-        },
-        {
-          "id": "rest-005",
-          "name": "首爾韓食堂・石鍋拌飯與豆腐煲",
-          "cuisine": "韓式料理",
-          "city_area": "台北市中山區",
-          "avg_price": 150,
-          "eta_minutes": 28,
-          "rating": 4.6,
-          "calories_estimate": 640,
-          "signature_dishes": [
-            "韓式泡菜豬肉嫩豆腐煲",
-            "辣炒年糕起司雞肉丼",
-            "韓式炸醬麵"
-          ]
+            "星洲去骨海南雞腿飯（附特製辣醬）",
+            "濃郁椰香海鮮叻沙米苔目",
+            "肉骨茶湯"
+          ],
+          "description": "雞湯炊煮的泰國香米搭配滑嫩去骨油雞腿，隨餐附上新加坡正宗酸辣紅醬與黑醬油。"
         }
       ]
     },
@@ -124,25 +167,37 @@
     {
       "tool": "check_budget",
       "arguments": {
-        "price_per_person": 145,
+        "price_per_person": 125,
         "people": 2,
         "budget_per_person": 150
       },
       "output": {
         "people": 2,
-        "subtotal": 290,
+        "subtotal": 250,
         "delivery_fee": 39,
         "is_free_delivery": false,
-        "total_cost": 329,
-        "final_per_person": 164,
+        "total_cost": 289,
+        "final_per_person": 144,
         "budget_per_person": 150,
-        "within_budget": false,
-        "summary": "2 人訂餐小計 $290，外送費 $39（若加點 $10 小菜滿 $300 即享免外送費，平均每人僅 $150 完全符合預算上限）。"
+        "within_budget": true,
+        "summary": "2 人訂餐小計 $250，外送費 $39，總計 $289（平均每人 $144，符合預算上限 $150）。"
       }
     }
   ],
   "response": {
     "recommendations": [
+      {
+        "name": "心田蔬食・創意全素料理坊",
+        "dishes": [
+          "川味椒麻猴頭菇拌麵（全素）",
+          "松露野菇燉飯"
+        ],
+        "price": 125,
+        "eta_minutes": 20,
+        "calories_estimate": 430,
+        "reason": "【蔬食素食】平均每人 $125 完全符合 $150 預算上限；具備「清淡、清爽」風味且全素可食，預估 20 分鐘即可送達台北市大安區。",
+        "score": 96
+      },
       {
         "name": "川魂麻辣燙・酸辣粉專門店",
         "dishes": [
@@ -153,35 +208,23 @@
         "eta_minutes": 25,
         "calories_estimate": 620,
         "reason": "【川味中式】平均每人 $145 完全符合 $150 預算上限；具備「辣、麻」風味且絕不含牛肉成分，預估 25 分鐘即可送達台北市大安區。",
-        "score": 96
-      },
-      {
-        "name": "曼谷小廚泰式便當",
-        "dishes": [
-          "泰式打拋豬飯（附半熟蛋）",
-          "綠咖哩椰汁嫩雞飯"
-        ],
-        "price": 135,
-        "eta_minutes": 22,
-        "calories_estimate": 680,
-        "reason": "【泰式料理】平均每人 $135 完全符合 $150 預算上限；具備「酸辣、辣」風味且絕不含牛肉成分，預估 22 分鐘即可送達台北市大安區。",
         "score": 92
       },
       {
-        "name": "首爾韓食堂・石鍋拌飯與豆腐煲",
+        "name": "星洲雞飯・新加坡海南雞與叻沙專門",
         "dishes": [
-          "韓式泡菜豬肉嫩豆腐煲",
-          "辣炒年糕起司雞肉丼"
+          "星洲去骨海南雞腿飯（附特製辣醬）",
+          "濃郁椰香海鮮叻沙米苔目"
         ],
-        "price": 150,
-        "eta_minutes": 28,
-        "calories_estimate": 640,
-        "reason": "【韓式料理】平均每人 $150 完全符合 $150 預算上限；具備「辣、甜辣」風味且絕不含牛肉成分，2 人點餐剛好 $300 享免運費！",
+        "price": 145,
+        "eta_minutes": 24,
+        "calories_estimate": 610,
+        "reason": "【南洋料理】平均每人 $145 完全符合 $150 預算上限；具備「微辣、香濃」風味且絕不含牛肉成分，預估 24 分鐘即可送達台北市大安區。",
         "score": 88
       }
     ],
     "weather_summary": "台北市大安區多雲時陰偶陣雨（23°C，降雨機率 60%）：雨天外送需求較高，建議選擇距離近、預估 25 分鐘內送達的店家，微涼天氣適合溫熱或開胃帶辣料理。",
-    "budget_summary": "2 人訂餐小計 $290~$300，湊滿 $300 即享免外送費，平均每人 $145~$150 符合預算上限 $150。"
+    "budget_summary": "2 人訂餐小計 $250，外送費 $39，總計 $289（平均每人 $144，符合預算上限 $150）。"
   },
-  "streamed_commentary": "👨‍🍳 【AI 外送決策主廚即時講評】\n根據您設定的每人 $150 預算、「辣」口味偏好與「不吃牛」限制，我們從 16 家合作餐廳中透過向量檢索與工具過濾，為 2 位用餐者精選出：川魂麻辣燙・酸辣粉專門店、曼谷小廚泰式便當、首爾韓食堂・石鍋拌飯與豆腐煲。\n考量今日台北市大安區多雲偶陣雨（23°C），首選店家的預估外送時間僅需 25 分鐘，且完全不含牛肉成分；兩人合點若湊滿 $300 還可直接免去 $39 外送費，祝您今日午餐愉快！"
+  "streamed_commentary": "👨‍🍳 【AI 外送決策主廚即時講評】\n根據您設定的每人 $150 預算、「辣」口味偏好與「不吃牛」限制，我們從 16 家合作餐廳中透過向量檢索與工具過濾，為 2 位用餐者精選出：心田蔬食・創意全素料理坊、川魂麻辣燙・酸辣粉專門店、星洲雞飯・新加坡海南雞與叻沙專門。\n考量今日台北市大安區多雲時陰偶陣雨（23°C，降雨機率 60%）：雨天外送需求較高，建議選擇距離近、預估 25 分鐘內送達的店家，微涼天氣適合溫熱或開胃帶辣料理。，首選店家的預估外送時間僅需 20 分鐘，且完全不含牛肉成分；2 人訂餐小計 $250，外送費 $39，總計 $289（平均每人 $144，符合預算上限 $150）。 祝您今日午餐愉快！"
 }
