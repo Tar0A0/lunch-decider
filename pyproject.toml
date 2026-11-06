@@ -1,0 +1,42 @@
+[project]
+name = "lunch-decider"
+version = "0.1.0"
+description = "今日午餐吃什麼？智慧外送決策助手 — 結合結構化輸出、Tool Calling、串流與 Embedding 的 LLM CLI 工具"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+    { name = "name = "Tar0A0" }
+]
+dependencies = [
+    "httpx>=0.27.0",
+    "pydantic>=2.9.0",
+    "python-dotenv>=1.0.1",
+    "rich>=13.9.0",
+]
+
+[project.scripts]
+lunch = "lunch_decider.cli:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.0",
+    "ruff>=0.7.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/lunch_decider"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
