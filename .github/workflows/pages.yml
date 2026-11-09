@@ -45,7 +45,6 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-        continue-on-error: true
     environment:
       name: github-pages
-      url: https://tar0a0.github.io/lunch-decider/
+      url: ${{ steps.deployment.outputs.page_url }}
